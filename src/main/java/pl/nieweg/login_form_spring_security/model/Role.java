@@ -1,4 +1,4 @@
-package pl.nieweg.login_formspring_security.entities;
+package pl.nieweg.login_form_spring_security.model;
 
 import javax.persistence.*;
 

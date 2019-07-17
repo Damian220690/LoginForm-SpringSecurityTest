@@ -1,4 +1,4 @@
-package pl.nieweg.login_formspring_security.entities;
+package pl.nieweg.login_form_spring_security.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,12 +13,23 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private int active;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="user_role")
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(User user) {
+        this.active = user.getActive();
+        this.email = user.getEmail();
+        this.roles = user.getRoles();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.id = user.getId();
+        this.password = user.getPassword();
     }
 
     public long getId() {
@@ -67,5 +78,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

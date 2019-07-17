@@ -1,4 +1,4 @@
-package pl.nieweg.login_formspring_security;
+package pl.nieweg.login_form_spring_security;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
