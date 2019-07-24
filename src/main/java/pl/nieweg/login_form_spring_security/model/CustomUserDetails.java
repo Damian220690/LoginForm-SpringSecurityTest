@@ -1,9 +1,12 @@
 package pl.nieweg.login_form_spring_security.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomUserDetails extends User implements UserDetails {
 
@@ -13,7 +16,11 @@ public class CustomUserDetails extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        List<SimpleGrantedAuthority> roles = getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
+                .collect(Collectors.toList());
+
+        return roles;
     }
 
     @Override
