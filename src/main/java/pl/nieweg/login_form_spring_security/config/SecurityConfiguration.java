@@ -1,6 +1,7 @@
 package pl.nieweg.login_form_spring_security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
     }
 
@@ -32,9 +34,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("**/secured/**").authenticated()
+                .antMatchers("/resources/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().permitAll();
+                .formLogin().loginPage("/login").permitAll();
 
 //                  For my own login page;
 //                 .formLogin().loginPage("").permitAll();
@@ -53,5 +56,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             }
         };
     }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        PasswordEncoder encoder = new BCryptPasswordEncoder();
+//        return encoder;
+//    }
 
 }
