@@ -24,8 +24,4 @@ public class HelloController {
         return "Secured Hello";
     }
 
-    @GetMapping("/login")
-    public String getLoginPage(){
-        return "loginForm";
-    }
 }

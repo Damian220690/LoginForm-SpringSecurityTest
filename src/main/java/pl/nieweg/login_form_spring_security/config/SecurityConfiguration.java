@@ -23,7 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
 //        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
@@ -37,7 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").permitAll();
+                .formLogin().loginPage("/login")
+                .defaultSuccessUrl("/rest/secured/greeting")
+                .failureUrl("/login-error")
+                .permitAll();
 
 //                  For my own login page;
 //                 .formLogin().loginPage("").permitAll();
